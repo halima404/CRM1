@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gradient-to-b from-orange-50/40 via-white to-amber-50/40`}>
         <Suspense fallback={null}>{children}</Suspense>
       </body>
     </html>
