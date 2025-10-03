@@ -7,7 +7,7 @@ import { useState } from "react"
 // Enhanced SVG Icons with Advanced Animations
 const CodeIcon = () => (
   <svg
-    className="h-12 w-12 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
+    className="h-10 w-10 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -18,7 +18,7 @@ const CodeIcon = () => (
 
 const SettingsIcon = () => (
   <svg
-    className="h-12 w-12 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:rotate-180"
+    className="h-10 w-10 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:rotate-180"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -35,7 +35,7 @@ const SettingsIcon = () => (
 
 const CloudUploadIcon = () => (
   <svg
-    className="h-12 w-12 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
+    className="h-10 w-10 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -51,7 +51,7 @@ const CloudUploadIcon = () => (
 
 const ServerIcon = () => (
   <svg
-    className="h-12 w-12 text-blue-600 group-hover:text-orange-500 transition-all duration-500"
+    className="h-10 w-10 text-blue-600 group-hover:text-orange-500 transition-all duration-500"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ const ServerIcon = () => (
 
 const ShieldIcon = () => (
   <svg
-    className="h-12 w-12 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
+    className="h-10 w-10 text-blue-600 group-hover:text-orange-500 transition-all duration-500 group-hover:scale-110"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -134,17 +134,33 @@ export default function ServicesSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold tracking-wide uppercase">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-orange-100 rounded-full mb-6">
+            <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-semibold text-gray-700 tracking-wide uppercase">
               Notre Expertise
             </span>
           </div>
+          
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
             Des Solutions{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
-              Sur Mesure
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
+                Sur Mesure
+              </span>
+              <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
+                <path d="M1 5.5C50 2.5 150 2.5 199 5.5" stroke="url(#services-gradient)" strokeWidth="3" strokeLinecap="round"/>
+                <defs>
+                  <linearGradient id="services-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#3B82F6" />
+                    <stop offset="100%" stopColor="#F97316" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </span>
           </h2>
+          
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Transformez vos défis technologiques en opportunités de croissance avec nos services intégrés
           </p>
@@ -166,23 +182,23 @@ export default function ServicesSection() {
 
               <CardHeader className="relative text-center p-8">
                 {/* Icon container with animated background */}
-                <div className="relative mx-auto mb-6 w-20 h-20 flex items-center justify-center">
+                <div className="relative mx-auto mb-4 w-16 h-16 flex items-center justify-center">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-orange-100 rounded-2xl group-hover:scale-110 transition-transform duration-500"></div>
                   <div className="relative z-10">{service.icon()}</div>
                 </div>
 
-                <CardTitle className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                <CardTitle className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
                   {service.title}
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="relative p-8 pt-0">
-                <CardDescription className="text-base text-gray-600 leading-relaxed mb-6">
+              <CardContent className="relative p-6 pt-0">
+                <CardDescription className="text-base text-gray-600 leading-relaxed mb-4">
                   {service.description}
                 </CardDescription>
 
                 {/* Features list */}
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-1.5 mb-4">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start text-sm text-gray-700">
                       <svg className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -226,23 +242,6 @@ export default function ServicesSection() {
               ></div>
             </Card>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-gray-600 mb-6 text-lg">Vous avez un projet spécifique en tête ?</p>
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-semibold px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            asChild
-          >
-            <a href="/contact">
-              Discutons de votre projet
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </Button>
         </div>
       </div>
     </section>

@@ -1,83 +1,275 @@
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+"use client"
+
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 import Link from "next/link"
 
-// Testimonial data
+// Premium SVG Icons
+const QuoteIcon = () => (
+  <svg className="h-16 w-16 text-blue-500/20 absolute -top-4 -left-4 group-hover:text-orange-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+  </svg>
+)
+
+const StarIcon = () => (
+  <svg className="h-5 w-5 fill-amber-400 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+)
+
+const VerifiedIcon = () => (
+  <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+  </svg>
+)
+
 const testimonials = [
   {
-    name: "Aminata Diallo",
-    role: "Directrice, FinTech Guinée",
-    text: "L'application bancaire développée par Curium-808 a révolutionné notre service client. Une équipe réactive et innovante !",
-    image: "/avatar-aminata.jpg",
+    name: "Amadou Diallo",
+    role: "CEO",
+    company: "Retail Solutions",
+    image: "/placeholder.svg",
+    content: "L'équipe a transformé notre vision en une plateforme e-commerce performante. Leur expertise technique et leur compréhension de nos besoins ont dépassé nos attentes.",
+    rating: 5,
+    project: "E-commerce",
+    metric: "+250% de ventes",
+    verified: true,
+    tags: ["E-commerce", "UX Design", "Performance"]
   },
   {
-    name: "Mamadou Bah",
-    role: "CEO, Retail Solutions",
-    text: "Grâce à leur système e-commerce, nos ventes ont augmenté de 40 % en six mois. Un travail exceptionnel !",
-    image: "/avatar-mamadou.jpg",
+    name: "Fatoumata Camara",
+    role: "Directrice Technique",
+    company: "FinTech Guinée",
+    image: "/placeholder.svg",
+    content: "Professionnalisme exceptionnel et livraison dans les délais. Notre application mobile banking est devenue la référence du secteur grâce à leur travail méticuleux sur la sécurité et l'expérience utilisateur.",
+    rating: 4,
+    project: "Mobile Banking",
+    metric: "50K+ utilisateurs",
+    verified: true,
+    tags: ["Mobile", "Sécurité", "FinTech"]
   },
   {
-    name: "Fatoumata Sow",
-    role: "CTO, Smart Buildings",
-    text: "La solution IoT de Curium-808 offre une sécurité inégalée. Leur expertise est impressionnante.",
-    image: "/avatar-fatoumata.jpg",
+    name: "Ibrahima Sow",
+    role: "CTO",
+    company: "TechCorp",
+    image: "/placeholder.svg",
+    content: "La migration de notre infrastructure vers le cloud s'est déroulée sans accroc. Leur expertise en DevOps et leur support continu ont assuré une transition fluide avec zéro temps d'arrêt.",
+    rating: 4,
+    project: "Cloud Migration",
+    metric: "99.99% uptime",
+    verified: true,
+    tags: ["Cloud", "DevOps", "Infrastructure"]
   },
+  {
+    name: "Mariama Bah",
+    role: "Directrice Innovation",
+    company: "Smart Buildings",
+    image: "/placeholder.svg",
+    content: "Leur solution IoT a révolutionné notre gestion de sécurité. L'intégration avec nos systèmes existants a été transparente et le ROI a été atteint en moins de 6 mois.",
+    rating: 5,
+    project: "IoT Security",
+    metric: "ROI en 6 mois",
+    verified: true,
+    tags: ["IoT", "Sécurité", "Innovation"]
+  },
+  {
+    name: "Ousmane Barry",
+    role: "Fondateur",
+    company: "EduTech Guinée",
+    image: "/placeholder.svg",
+    content: "Une équipe créative et réactive qui a su transformer notre concept éducatif en une plateforme intuitive. Le support post-lancement est exceptionnel et les mises à jour régulières démontrent leur engagement.",
+    rating: 5,
+    project: "Plateforme LMS",
+    metric: "10K+ étudiants",
+    verified: true,
+    tags: ["EdTech", "Web App", "UX"]
+  },
+  {
+    name: "Aissatou Diaby",
+    role: "COO",
+    company: "LogisTech Solutions",
+    image: "/placeholder.svg",
+    content: "Le système de gestion logistique qu'ils ont développé a optimisé nos opérations de 40%. Leur approche analytique et leur attention aux détails ont fait toute la différence.",
+    rating: 5,
+    project: "Logistique",
+    metric: "+40% efficacité",
+    verified: true,
+    tags: ["Logistique", "Analytics", "Automation"]
+  }
 ]
 
 export function TestimonialSection() {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
   return (
-    <section className="py-28 bg-gradient-to-br from-blue-50/30 via-white/60 to-orange-50/30 overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-orange-50/20 overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '2s' }} />
+
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-24 animate-fade-in">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 text-balance mb-8 bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
-            Ce que disent nos clients
+        {/* Header */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-orange-100 px-4 py-2 rounded-full mb-6">
+            <svg className="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+            <span className="text-sm font-semibold text-gray-700">Témoignages Clients</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
+            Ce Que Disent Nos{" "}
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 bg-clip-text text-transparent">
+              Clients
+            </span>
           </h2>
-          <p className="text-xl md:text-2xl text-gray-700 text-pretty max-w-4xl mx-auto animate-fade-in-up">
-            Découvrez les retours de nos partenaires qui ont bénéficié de nos solutions innovantes
+          
+          {/* Animated Underline */}
+          <div className="flex justify-center mb-6">
+            <div className="h-1.5 w-32 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 rounded-full" />
+          </div>
+          
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto line-clamp-2">
+            Découvrez comment nous avons aidé des entreprises comme la vôtre à atteindre leurs objectifs technologiques et à transformer leurs opérations
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {testimonials.map((testimonial, index) => (
+        
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {testimonials.slice(0, 3).map((testimonial, index) => (
             <Card
               key={index}
-              className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-6 bg-white/20 backdrop-blur-lg border-none rounded-3xl overflow-hidden transform hover:rotate-1 hover:scale-105"
+              className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-gray-200 hover:border-blue-300 rounded-3xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <CardHeader className="p-8 text-center bg-gradient-to-br from-blue-100/30 to-orange-100/30">
-                <div className="mx-auto mb-6 animate-scale-up">
-                  <Avatar className="w-20 h-20 border-4 border-white/50 group-hover:border-orange-300 transition-all duration-300">
-                    <AvatarImage src={testimonial.image || "/placeholder-avatar.jpg"} alt={testimonial.name} />
-                    <AvatarFallback>{testimonial.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                  </Avatar>
+              {/* Quote Icon Background */}
+              <QuoteIcon />
+              
+            
+
+              <CardContent className="p-8 relative z-10">
+                {/* Rating Stars */}
+                <div className="flex gap-1 mb-4" aria-label={`Note: ${testimonial.rating}/5`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`${i < testimonial.rating ? 'fill-amber-400' : 'fill-gray-300'} h-5 w-5`}
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
-                  {testimonial.name}
-                </h3>
-                <p className="text-sm text-gray-500">{testimonial.role}</p>
-              </CardHeader>
-              <CardContent className="p-8 text-center bg-white/10 backdrop-blur-md">
-                <CardDescription className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6 animate-fade-in-up">
-                  {testimonial.text}
-                </CardDescription>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-blue-600 hover:text-orange-500 hover:bg-blue-50/30 border border-blue-200 rounded-full px-6 py-2 transition-all duration-300 animate-hover-glow"
-                  asChild
-                >
-                  <Link href="/testimonials">Lire plus</Link>
-                </Button>
+
+                {/* Content */}
+                <p className={`text-gray-700 text-base leading-relaxed mb-6 ${expandedIndex === index ? '' : 'line-clamp-4'}`}>
+                  "{testimonial.content}"
+                </p>
+
+                {/* Read More Button */}
+                {index === 0 && testimonial.content.length > 150 && (
+                  <button
+                    onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
+                    className="text-blue-600 hover:text-orange-600 text-sm font-semibold mb-6 transition-colors duration-300 flex items-center gap-1"
+                  >
+                    {expandedIndex === index ? 'Voir moins' : 'Lire plus'}
+                    <svg className={`h-4 w-4 transition-transform duration-300 ${expandedIndex === index ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Minimalist: removed metric badge */}
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {testimonial.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="px-3 py-1 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-700 text-xs font-medium rounded-full transition-colors duration-300 cursor-pointer line-clamp-1"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Author Info */}
+                <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
+                  <div className="relative">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-14 h-14 rounded-full object-cover ring-4 ring-blue-100 group-hover:ring-orange-100 transition-all duration-300"
+                    />
+                    {testimonial.verified && (
+                      <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1">
+                        <VerifiedIcon />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-gray-900 text-lg line-clamp-1">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600 line-clamp-1">{testimonial.role}</p>
+                    <p className="text-sm text-orange-600 font-semibold line-clamp-1">{testimonial.company}</p>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="mt-6 h-1 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 rounded-full transition-all duration-700 ${
+                      hoveredIndex === index ? 'w-full' : 'w-0'
+                    }`}
+                  />
+                </div>
               </CardContent>
             </Card>
           ))}
         </div>
-      </div>
-      {/* Subtle background effect */}
-      <div className="absolute inset-0 -z-10 opacity-20">
-        <div className="absolute w-5 h-5 bg-blue-300 rounded-full animate-float-slow" style={{ top: '15%', left: '10%' }} />
-        <div className="absolute w-7 h-7 bg-orange-300 rounded-full animate-float-medium" style={{ top: '40%', right: '15%' }} />
-        <div className="absolute w-4 h-4 bg-blue-200 rounded-full animate-float-fast" style={{ bottom: '20%', left: '25%' }} />
+
+        {/* CTA Section */}
+        <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-orange-600 rounded-3xl p-12 md:p-16 text-center overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Prêt à Rejoindre Nos Clients Satisfaits ?
+            </h3>
+            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto line-clamp-2">
+              Transformez votre entreprise avec nos solutions sur mesure. Contactez-nous pour discuter de votre projet
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-6 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg group"
+              >
+                <Link href="/contact" className="flex items-center gap-2">
+                  Démarrer un Projet
+                  <svg className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-6 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg"
+              >
+                <Link href="/testimonials">Tous les Témoignages</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
