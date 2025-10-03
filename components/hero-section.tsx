@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, MouseEvent } from "react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e
     const { innerWidth, innerHeight } = window
     const x = (clientX / innerWidth - 0.5) * 20
@@ -23,16 +23,8 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-black/50" /> {/* Overlay sombre */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[800px]">
-          {/* Left: Image (maintenant en fond, pas de carte) */}
-          <div className="order-1 lg:order-none hidden lg:block">
-            <div
-              className="h-[560px] w-full bg-contain bg-no-repeat bg-center opacity-0"
-              aria-hidden="true"
-            />
-          </div>
-
-          {/* Right: Content */}
-          <div className="text-center lg:text-left max-w-2xl lg:max-w-none mx-auto space-y-8">
+          {/* Left: Content */}
+          <div className="order-1 lg:order-none text-left max-w-2xl lg:max-w-none space-y-8">
             <h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in-up"
               style={{ textShadow: '0 4px 20px rgba(0, 0, 0, 0.5)', animationDelay: '0.1s' }}
@@ -51,7 +43,7 @@ export function HeroSection() {
             </p>
 
             <div
-              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-6 animate-fade-in-up"
+              className="flex flex-col sm:flex-row items-center lg:items-start justify-start gap-4 sm:gap-6 animate-fade-in-up"
               style={{ animationDelay: '0.5s' }}
             >
               <Button
@@ -98,6 +90,14 @@ export function HeroSection() {
                 <div className="text-xs sm:text-sm text-gray-300">Support dédié</div>
               </div>
             </div>
+          </div>
+
+          {/* Right: Image (maintenant à droite) */}
+          <div className="order-2 lg:order-none hidden lg:block">
+            <div
+              className="h-[560px] w-full bg-contain bg-no-repeat bg-center opacity-0"
+              aria-hidden="true"
+            />
           </div>
         </div>
       </div>

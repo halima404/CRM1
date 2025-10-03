@@ -2,10 +2,12 @@ import { BlogHero } from "@/components/blog/blog-hero"
 import { FeaturedArticle } from "@/components/blog/featured-article"
 import { ArticleGrid } from "@/components/blog/article-grid"
 import { BlogSidebar } from "@/components/blog/blog-sidebar"
+import { Navigation } from "@/components/navigation"
 
 export default function BlogPage() {
   return (
     <main className="min-h-screen">
+      <Navigation />
       <BlogHero />
 
       <div className="container mx-auto px-4 py-16">
