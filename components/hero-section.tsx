@@ -73,23 +73,7 @@ export function HeroSection() {
               </Button>
             </div>
 
-            <div
-              className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl lg:max-w-none mx-auto lg:mx-0 pt-12 animate-fade-in-up"
-              style={{ animationDelay: '0.7s' }}
-            >
-              <div className="text-center backdrop-blur-sm bg-white/10 rounded-2xl p-4 border border-white/20">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">50+</div>
-                <div className="text-xs sm:text-sm text-gray-300">Projets réalisés</div>
-              </div>
-              <div className="text-center backdrop-blur-sm bg-white/10 rounded-2xl p-4 border border-white/20">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">100%</div>
-                <div className="text-xs sm:text-sm text-gray-300">Satisfaction client</div>
-              </div>
-              <div className="text-center backdrop-blur-sm bg-white/10 rounded-2xl p-4 border border-white/20">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">24/7</div>
-                <div className="text-xs sm:text-sm text-gray-300">Support dédié</div>
-              </div>
-            </div>
+          *$
           </div>
 
           {/* Right: Image (maintenant à droite) */}
