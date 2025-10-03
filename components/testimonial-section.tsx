@@ -29,7 +29,7 @@ const testimonials = [
     name: "Amadou Diallo",
     role: "CEO",
     company: "Retail Solutions",
-    image: "/placeholder.svg",
+    image: "/images/t2.jpg",
     content: "L'équipe a transformé notre vision en une plateforme e-commerce performante. Leur expertise technique et leur compréhension de nos besoins ont dépassé nos attentes.",
     rating: 5,
     project: "E-commerce",
@@ -41,7 +41,7 @@ const testimonials = [
     name: "Fatoumata Camara",
     role: "Directrice Technique",
     company: "FinTech Guinée",
-    image: "/placeholder.svg",
+    image: "/images/t1.jpg",
     content: "Professionnalisme exceptionnel et livraison dans les délais. Notre application mobile banking est devenue la référence du secteur grâce à leur travail méticuleux sur la sécurité et l'expérience utilisateur.",
     rating: 4,
     project: "Mobile Banking",
@@ -53,7 +53,7 @@ const testimonials = [
     name: "Ibrahima Sow",
     role: "CTO",
     company: "TechCorp",
-    image: "/placeholder.svg",
+    image: "/images/t3.jpg",
     content: "La migration de notre infrastructure vers le cloud s'est déroulée sans accroc. Leur expertise en DevOps et leur support continu ont assuré une transition fluide avec zéro temps d'arrêt.",
     rating: 4,
     project: "Cloud Migration",
@@ -200,12 +200,12 @@ export function TestimonialSection() {
                 </div>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
+                <div className="flex items-center gap-5 pt-6 border-t border-gray-200">
                   <div className="relative">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-14 h-14 rounded-full object-cover ring-4 ring-blue-100 group-hover:ring-orange-100 transition-all duration-300"
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-4 ring-blue-100 group-hover:ring-orange-100 transition-all duration-300"
                     />
                     {testimonial.verified && (
                       <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1">
@@ -231,44 +231,6 @@ export function TestimonialSection() {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-orange-600 rounded-3xl p-12 md:p-16 text-center overflow-hidden">
-          {/* Decorative Elements */}
-          <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          
-          <div className="relative z-10">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Prêt à Rejoindre Nos Clients Satisfaits ?
-            </h3>
-            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto line-clamp-2">
-              Transformez votre entreprise avec nos solutions sur mesure. Contactez-nous pour discuter de votre projet
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-6 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg group"
-              >
-                <Link href="/contact" className="flex items-center gap-2">
-                  Démarrer un Projet
-                  <svg className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-6 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg"
-              >
-                <Link href="/testimonials">Tous les Témoignages</Link>
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
