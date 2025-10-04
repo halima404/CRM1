@@ -48,19 +48,37 @@ export function CompanyValues() {
   ]
 
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Nos Valeurs</h2>
+    <section className="py-24 bg-gradient-to-br from-white/80 via-orange-50/30 to-blue-50/20 overflow-hidden">
+      <div className="container mx-auto px-4 relative">
+        {/* Subtle background animation */}
+        <div className="absolute inset-0 -z-10 opacity-20">
+          <div className="absolute w-32 h-32 bg-orange-400/10 rounded-full blur-lg animate-float-slow" style={{ top: '10%', left: '10%' }} />
+          <div className="absolute w-40 h-40 bg-orange-500/10 rounded-full blur-lg animate-float-medium" style={{ bottom: '15%', right: '15%' }} />
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-16 animate-fade-in-up">
+            Nos Valeurs 
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
             {values.map((value, index) => (
-              <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-2xl mb-6 group-hover:bg-primary/20 transition-colors">
-                  {value.icon}
+              <div
+                key={index}
+                className="p-6 bg-white/90 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100 animate-fade-in"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className="flex justify-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl group-hover:from-orange-200 group-hover:to-orange-300 transition-all duration-300">
+                    {value.icon}
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 group-hover:text-orange-600 transition-colors">
+                  {value.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>

@@ -29,25 +29,9 @@ export function AboutMissionVision() {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-orange-100 rounded-full mb-4">
-              <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm font-semibold text-gray-700">Mission & Vision</span>
-            </div>
+         
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
               Notre Cap Nord
-              <span className="relative block mx-auto mt-2 w-full max-w-md">
-                <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
-                  <path d="M1 5.5C50 2.5 150 2.5 199 5.5" stroke="url(#about-mv)" strokeWidth="3" strokeLinecap="round"/>
-                  <defs>
-                    <linearGradient id="about-mv" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#3B82F6" />
-                      <stop offset="100%" stopColor="#F97316" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
             </h2>
           </div>
 
