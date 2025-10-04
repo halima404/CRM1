@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description:
     "Curium-808 transforme les défis technologiques en opportunités de croissance grâce à des solutions sur mesure, sécurisées et conçues avec passion.",
   generator: "v0.app",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 }
 
 export default function RootLayout({
