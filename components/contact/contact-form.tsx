@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,6 +13,8 @@ export function ContactForm() {
     company: "",
     phone: "",
     service: "",
+    budget: "",
+    timeline: "",
     message: "",
   })
 
@@ -27,23 +27,21 @@ export function ContactForm() {
     setSubmitStatus("idle")
 
     try {
-      // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      console.log("[v0] Form submitted:", formData)
+      console.log("Form submitted:", formData)
       setSubmitStatus("success")
-
-      // Reset form after successful submission
       setFormData({
         name: "",
         email: "",
         company: "",
         phone: "",
         service: "",
+        budget: "",
+        timeline: "",
         message: "",
       })
     } catch (error) {
-      console.log("[v0] Form submission error:", error)
+      console.log("Form submission error:", error)
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
@@ -57,154 +55,215 @@ export function ContactForm() {
     })
   }
 
+  const services = [
+    { value: "creation", label: "Création de Logiciels" },
+    { value: "maintenance", label: "Maintenance" },
+    { value: "systemes", label: "Systèmes & Réseaux" },
+    { value: "securite", label: "Cybersécurité" },
+    { value: "consultation", label: "Consultation" },
+    { value: "autre", label: "Autre" },
+  ]
+
   return (
-    <Card className="bg-slate-50 border-slate-200">
-      <CardHeader>
-        <CardTitle className="text-2xl text-slate-900">Demander un devis</CardTitle>
-        <p className="text-slate-600">Décrivez-nous votre projet et nous vous recontacterons dans les 24h</p>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="max-w-7xl mx-auto py-12 px-6">
+      <Card className="bg-white border border-gray-100 rounded-2xl shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-orange-600 p-10">
+          <div className="text-center">
+            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <CardTitle className="text-6xl md:text-7xl font-bold text-white mb-6">Parlons de votre projet</CardTitle>
+            <p className="text-3xl md:text-4xl text-white/90">Obtenez un devis personnalisé sous 24h</p>
+          </div>
+        </CardHeader>
+
+        <CardContent className="p-8">
           {submitStatus === "success" && (
-            <div className="p-4 bg-green-50 border border-green-200 rounded-md">
-              <p className="text-green-800 font-medium">✓ Votre demande a été envoyée avec succès !</p>
-              <p className="text-green-600 text-sm mt-1">Nous vous recontacterons dans les 24h.</p>
+            <div className="mb-8 p-6 bg-green-50 border border-green-200 rounded-xl text-center">
+              <p className="text-3xl font-bold text-green-800 mb-2">Message envoyé avec succès !</p>
+              <p className="text-2xl text-green-600">Nous vous recontacterons sous 24h.</p>
             </div>
           )}
 
           {submitStatus === "error" && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-md">
-              <p className="text-red-800 font-medium">✗ Une erreur s'est produite</p>
-              <p className="text-red-600 text-sm mt-1">Veuillez réessayer ou nous contacter directement.</p>
+            <div className="mb-8 p-6 bg-red-50 border border-red-200 rounded-xl text-center">
+              <p className="text-3xl font-bold text-red-800 mb-2">Erreur lors de l'envoi</p>
+              <p className="text-2xl text-red-600">Veuillez réessayer ou nous contacter directement.</p>
             </div>
           )}
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                Nom complet *
-              </label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="bg-white border-slate-300"
-                disabled={isSubmitting}
-              />
+          <form onSubmit={handleSubmit} className="space-y-10">
+            {/* Vos informations */}
+            <div className="border border-gray-200 rounded-xl p-8">
+              <h3 className="text-4xl font-bold text-gray-900 mb-6">Vos informations</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label htmlFor="name" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Nom complet <span className="text-red-500">*</span>
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full h-24 border-2 rounded-xl text-3xl px-6"
+                    placeholder="Jean Dupont"
+                    disabled={isSubmitting}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <label htmlFor="email" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full h-24 border-2 rounded-xl text-3xl px-6"
+                    placeholder="jean@exemple.com"
+                    disabled={isSubmitting}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <label htmlFor="company" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Entreprise
+                  </label>
+                  <Input
+                    id="company"
+                    name="company"
+                    type="text"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full h-24 border-2 rounded-xl text-3xl px-6"
+                    placeholder="Nom de l'entreprise"
+                    disabled={isSubmitting}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <label htmlFor="phone" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Téléphone
+                  </label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full h-24 border-2 rounded-xl text-3xl px-6"
+                    placeholder="+224 XX XX XX XX"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
             </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                Email *
-              </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="bg-white border-slate-300"
-                disabled={isSubmitting}
-              />
+
+            {/* Votre projet */}
+            <div className="border border-gray-200 rounded-xl p-8">
+              <h3 className="text-4xl font-bold text-gray-900 mb-6">Votre projet</h3>
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <label htmlFor="service" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Service souhaité <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    required
+                    value={formData.service}
+                    onChange={handleChange}
+                    className="w-full h-24 border-2 rounded-xl bg-white text-3xl text-gray-900 px-6 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    disabled={isSubmitting}
+                  >
+                    <option value="">Sélectionnez un service</option>
+                    {services.map((service) => (
+                      <option key={service.value} value={service.value} className="text-3xl">
+                        {service.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <label htmlFor="budget" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                      Budget estimé
+                    </label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="w-full h-20 border-2 rounded-xl bg-white text-2xl text-gray-900 px-6 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      disabled={isSubmitting}
+                    >
+                      <option value="">Sélectionnez un budget</option>
+                      <option value="< 50M">Moins de 50M GNF</option>
+                      <option value="50M-150M">50M - 150M GNF</option>
+                      <option value="150M-500M">150M - 500M GNF</option>
+                      <option value="500M+">Plus de 500M GNF</option>
+                      <option value="a-definir">À définir</option>
+                    </select>
+                  </div>
+                  <div className="space-y-4">
+                    <label htmlFor="timeline" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                      Délai souhaité
+                    </label>
+                    <select
+                      id="timeline"
+                      name="timeline"
+                      value={formData.timeline}
+                      onChange={handleChange}
+                      className="w-full h-20 border-2 rounded-xl bg-white text-2xl text-gray-900 px-6 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      disabled={isSubmitting}
+                    >
+                      <option value="">Sélectionnez un délai</option>
+                      <option value="urgent">Urgent (1 mois)</option>
+                      <option value="1-3mois">1-3 mois</option>
+                      <option value="3-6mois">3-6 mois</option>
+                      <option value="6mois+">+ 6 mois</option>
+                      <option value="flexible">Flexible</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <label htmlFor="message" className="block text-2xl md:text-3xl font-semibold text-gray-700">
+                    Décrivez votre projet <span className="text-red-500">*</span>
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={8}
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Décrivez vos objectifs, fonctionnalités souhaitées, contraintes techniques..."
+                    className="w-full border-2 rounded-xl text-3xl px-6 py-6 resize-y"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">
-                Entreprise
-              </label>
-              <Input
-                id="company"
-                name="company"
-                type="text"
-                value={formData.company}
-                onChange={handleChange}
-                className="bg-white border-slate-300"
+            <div className="text-center space-y-6">
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full md:w-auto min-w-[400px] h-24 bg-gradient-to-r from-blue-600 to-orange-600 hover:from-blue-700 hover:to-orange-700 text-white text-3xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
                 disabled={isSubmitting}
-              />
+              >
+                {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+              </Button>
+              <p className="text-2xl md:text-3xl text-gray-600">Réponse garantie sous 24h ouvrées</p>
             </div>
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                Téléphone
-              </label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                className="bg-white border-slate-300"
-                disabled={isSubmitting}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
-              Service souhaité
-            </label>
-            <select
-              id="service"
-              name="service"
-              value={formData.service}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-              disabled={isSubmitting}
-            >
-              <option value="">Sélectionnez un service</option>
-              <option value="creation">Création de Logiciels</option>
-              <option value="maintenance">Maintenance & Mise à Jour</option>
-              <option value="systemes">Systèmes & Réseaux</option>
-              <option value="securite">Cybersécurité</option>
-              <option value="autre">Autre</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-              Décrivez votre projet *
-            </label>
-            <Textarea
-              id="message"
-              name="message"
-              required
-              rows={5}
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Décrivez-nous votre projet, vos besoins et vos objectifs..."
-              className="bg-white border-slate-300"
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <>
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Envoi en cours...
-              </>
-            ) : (
-              "Envoyer ma demande"
-            )}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

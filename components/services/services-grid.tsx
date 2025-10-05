@@ -17,21 +17,19 @@ interface ServicesGridProps {
 
 export function ServicesGrid({ services }: ServicesGridProps) {
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Nos Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez notre gamme complète de solutions technologiques
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Nos Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Découvrez notre gamme de solutions
             </p>
           </div>
 
-          {/* Horizontal Grid of compact service cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+          {/* Horizontal grid of compact service cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <ServiceDetailCompact
                 key={service.id}

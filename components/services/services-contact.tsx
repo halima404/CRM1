@@ -9,14 +9,9 @@ export function ServicesContact() {
           Nos experts sont à votre disposition pour analyser vos défis technologiques et vous proposer des solutions sur
           mesure adaptées à votre secteur d'activité.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" asChild>
-            <a href="/contact">Discutons-en</a>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href="tel:+224123456789">Appelez-nous directement</a>
-          </Button>
-        </div>
+        <Button size="lg" asChild>
+          <a href="/contact">Discutons-en</a>
+        </Button>
       </div>
     </section>
   )

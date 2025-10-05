@@ -84,7 +84,7 @@ const articles = {
       <h2>Notre vision chez Curium-808</h2>
       <p>Nous croyons en une IA accessible et utile, qui serve le développement économique et social de l'Afrique.</p>
     `,
-    image: "/artificial-intelligence-africa-technology-innovation.jpg",
+    image: "/artificial-intelligence-africa-technology-innovati.jpg",
     author: "Abdoulaye Sall",
     date: "8 janvier 2025",
     readTime: "6 min",

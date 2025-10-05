@@ -21,7 +21,7 @@ const articles = [
     category: "Innovation",
     author: "Abdoulaye Sall",
     date: "8 janvier 2025",
-    image: "/artificial-intelligence-africa-technology-innovation.jpg",
+    image: "/artificial-intelligence-africa-technology-innovati.jpg",
   },
   {
     slug: "curium-808-histoire-passion",
@@ -76,6 +76,9 @@ export function ArticleGrid() {
                   width={400}
                   height={300}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.src = "/placeholder.svg"
+                  }}
                 />
               </div>
               <div className="space-y-3">
